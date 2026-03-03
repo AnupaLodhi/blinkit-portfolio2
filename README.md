@@ -104,7 +104,7 @@ Data-driven decision making & performance tracking
 📬 Connect
 Anupa Lodhi
 
-🔗 LinkedIn: linkedin.com/in/anupa-lodhi
+🔗 LinkedIn: (https://www.linkedin.com/in/anupalodhi12a/)
 💻 GitHub: github.com/AnupaLodhi
 
 
