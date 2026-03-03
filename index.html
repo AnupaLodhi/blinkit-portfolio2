@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blinkit Growth Marketing — Portfolio Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --yellow: #FFD700;
+    --yellow-light: #FFF176;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --mid: #1C1C1C;
+    --card: #161616;
+    --border: rgba(255,215,0,0.15);
+    --text: #E8E8E8;
+    --muted: #888;
+    --accent: #FF6B2B;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--yellow);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--yellow); }
+
+  .nav-badge {
+    background: var(--yellow);
+    color: var(--black);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.3rem 0.9rem;
+    border-radius: 2rem;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 60% 20%, rgba(255,215,0,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 10% 80%, rgba(255,107,43,0.05) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,215,0,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,215,0,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+  }
+
+  .hero-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--yellow);
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 2.5rem;
+    max-width: 900px;
+  }
+
+  .hero-title span {
+    color: var(--yellow);
+    display: block;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  .meta-item label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .meta-item span {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+    animation: scrollAnim 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollAnim {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.5); opacity: 0.4; }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  /* OVERVIEW */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+
+  .overview-text p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+
+  .overview-text p strong { color: var(--text); font-weight: 500; }
+
+  .objectives-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .objectives-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+
+  .objectives-list li::before {
+    content: '→';
+    color: var(--yellow);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  /* STATS */
+  .stats-section {
+    background: var(--dark);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .stat-card {
+    background: var(--card);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .stat-card:hover { background: #1e1e1e; }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+
+  .stat-card:hover::before { transform: scaleX(1); }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* PROBLEM */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .problem-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .problem-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--yellow), transparent);
+  }
+
+  .problem-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .problem-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--text);
+  }
+
+  .problem-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* AUDIENCE */
+  .audience-section {
+    background: var(--dark);
+  }
+
+  .audience-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: center;
+  }
+
+  .audience-persona {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .persona-avatar {
+    width: 80px;
+    height: 80px;
+    background: var(--yellow);
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+  }
+
+  .persona-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .persona-role {
+    font-size: 0.82rem;
+    color: var(--yellow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .persona-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .tag {
+    background: rgba(255,215,0,0.08);
+    border: 1px solid rgba(255,215,0,0.2);
+    color: var(--yellow);
+    font-size: 0.72rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    letter-spacing: 0.04em;
+  }
+
+  .tag.grey {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.1);
+    color: var(--muted);
+  }
+
+  .audience-insights h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  .insight-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .insight-row:last-child { border-bottom: none; }
+
+  .insight-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yellow);
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+  }
+
+  .insight-row p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .insight-row p strong { color: var(--text); font-weight: 500; }
+
+  /* STRATEGY */
+  .strategy-positioning {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 3rem 4rem;
+    border-radius: 8px;
+    margin: 3rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .positioning-quote {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    max-width: 600px;
+  }
+
+  .positioning-badge {
+    background: var(--black);
+    color: var(--yellow);
+    padding: 0.5rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .scenario-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .scenario-card:hover {
+    border-color: rgba(255,215,0,0.4);
+    transform: translateY(-4px);
+  }
+
+  .scenario-emoji { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+
+  .scenario-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* IMPLEMENTATION */
+  .impl-section { background: var(--dark); }
+
+  .impl-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .impl-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2.5rem 2rem;
+    position: relative;
+  }
+
+  .impl-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    color: var(--yellow);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .impl-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .impl-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .impl-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .impl-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--yellow);
+    font-size: 1.2rem;
+    line-height: 1;
+    top: 0.15rem;
+  }
+
+  /* FUNNEL */
+  .funnel-section { text-align: center; }
+
+  .funnel-wrapper {
+    margin: 3rem auto;
+    max-width: 700px;
+  }
+
+  .funnel-step {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.2rem 2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .funnel-step:hover { border-color: rgba(255,215,0,0.3); }
+
+  .funnel-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+  .funnel-step-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .funnel-step-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  .funnel-arrow {
+    text-align: center;
+    color: var(--yellow);
+    font-size: 1.2rem;
+    margin: 0.2rem 0;
+    opacity: 0.5;
+  }
+
+  /* TOOLS */
+  .tools-section { background: var(--dark); }
+
+  .tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 2.5rem;
+  }
+
+  .tool-badge {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 0.7rem 1.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .tool-badge:hover {
+    border-color: rgba(255,215,0,0.3);
+    background: rgba(255,215,0,0.03);
+  }
+
+  .tool-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--yellow);
+    flex-shrink: 0;
+  }
+
+  /* CONCLUSION */
+  .conclusion-section {
+    background: var(--black);
+  }
+
+  .conclusion-inner {
+    max-width: 750px;
+  }
+
+  .conclusion-inner p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+
+  .conclusion-inner p strong { color: var(--text); font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-left {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    color: var(--yellow);
+    font-size: 1rem;
+  }
+
+  .footer-right {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .overview-grid, .audience-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .problem-grid { grid-template-columns: 1fr; }
+    .scenarios-grid { grid-template-columns: repeat(2, 1fr); }
+    .impl-tabs { grid-template-columns: 1fr; }
+    .strategy-positioning { flex-direction: column; padding: 2rem 1.5rem; }
+    footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Portfolio ↗</a>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#strategy">Strategy</a></li>
+    <li><a href="#implementation">Execution</a></li>
+  </ul>
+  <span class="nav-badge">Growth Marketing</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-tag">Case Study · Quick Commerce · 2024</div>
+  <h1 class="hero-title">
+    Growth Strategy<br>
+    <span>for Blinkit</span>
+  </h1>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <label>Domain</label>
+      <span>Growth Marketing</span>
+    </div>
+    <div class="meta-item">
+      <label>Duration</label>
+      <span>8 Weeks</span>
+    </div>
+    <div class="meta-item">
+      <label>Focus</label>
+      <span>First-Time Order Conversion</span>
+    </div>
+    <div class="meta-item">
+      <label>Market</label>
+      <span>Tier-1 India Cities</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-label">01 — Introduction</div>
+  <h2>Converting Installs<br>into Orders</h2>
+  <div class="overview-grid fade-in">
+    <div class="overview-text">
+      <p>Quick commerce has transformed urban grocery shopping — deliveries in minutes, not hours. <strong>Blinkit leads this space</strong> with strong brand awareness and high app install rates among Gen Z users.</p>
+      <p>However, awareness alone doesn't drive revenue. Despite millions of installs, a significant portion of users never placed a single order. <strong>The gap between intent and action</strong> was costing Blinkit real revenue and inflating its Cost Per Acquisition.</p>
+      <p>This project designed and analyzed a complete growth marketing strategy to bridge that gap — converting passive app users into active, paying customers within the 18–28 age segment across metro cities.</p>
+    </div>
+    <ul class="objectives-list">
+      <li>Increase first-time order conversion rate among new users</li>
+      <li>Reduce Cost Per Acquisition (CPA) through smarter targeting</li>
+      <li>Improve early retention: repeat purchase within 14 days</li>
+      <li>Build emotional relevance with Gen Z through situational marketing</li>
+    </ul>
+  </div>
+</section>
+
+<!-- RESULTS / STATS -->
+<section class="stats-section" id="results">
+  <div class="section-label">02 — Results</div>
+  <h2>Impact After 8 Weeks</h2>
+  <div class="stats-grid fade-in">
+    <div class="stat-card">
+      <div class="stat-number">32%</div>
+      <div class="stat-label">Increase in<br>First-Time Orders</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">18%</div>
+      <div class="stat-label">Reduction in<br>Cost Per Acquisition</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">24%</div>
+      <div class="stat-label">Repeat Purchase Rate<br>Within 14 Days</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">58%</div>
+      <div class="stat-label">Conversions from<br>Short-Form Video</div>
+    </div>
+  </div>
+  <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+    <div class="stat-card" style="background:var(--card); border:1px solid var(--border); border-radius:6px; padding:1.5rem 2rem; display:flex; gap:3rem;">
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--accent);">12%</div>
+        <div style="font-size:0.8rem; color:var(--muted);">Increase in Average Order Value</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-label">03 — Problem Analysis</div>
+  <h2>Why Users Weren't<br>Ordering</h2>
+  <div class="problem-grid fade-in">
+    <div class="problem-card">
+      <span class="problem-icon">📉</span>
+      <h4>Low Conversion Rate</h4>
+      <p>App installs were high but first-order conversions lagged significantly. Users explored the app but didn't proceed to checkout.</p>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">💸</span>
+      <h4>Price Sensitivity</h4>
+      <p>Student segment showed high price sensitivity. Without a compelling discount, many abandoned at the pricing stage.</p>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">⏳</span>
+      <h4>No Urgency</h4>
+      <p>Users only considered ordering when facing an immediate need — but no triggers were creating that urgency proactively.</p>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">🛒</span>
+      <h4>Checkout Drop-offs</h4>
+      <p>Friction in the checkout experience — too many steps, missing incentives at the final stage — caused last-minute abandonment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience-section" id="audience">
+  <div class="section-label">04 — Target Audience</div>
+  <h2>Who We Were<br>Talking To</h2>
+  <div class="audience-wrapper fade-in">
+    <div class="audience-persona">
+      <div class="persona-avatar">🎓</div>
+      <div class="persona-name">Riya / Arjun</div>
+      <div class="persona-role">Primary Persona</div>
+      <div class="persona-tags">
+        <span class="tag">18–28 yrs</span>
+        <span class="tag">Delhi · Mumbai · Bengaluru</span>
+        <span class="tag">College Student</span>
+        <span class="tag grey">Price-conscious</span>
+        <span class="tag grey">Instagram-native</span>
+        <span class="tag grey">Late-night shopper</span>
+        <span class="tag">Reels consumer</span>
+        <span class="tag grey">Lives in PG / hostel</span>
+      </div>
+    </div>
+    <div class="audience-insights">
+      <h3>Research Insights</h3>
+      <div class="insight-row">
+        <div class="insight-dot"></div>
+        <p><strong>Gen Z responds to urgency.</strong> Time-bound, situation-based messaging outperforms feature promotion in driving immediate action.</p>
+      </div>
+      <div class="insight-row">
+        <div class="insight-dot"></div>
+        <p><strong>Impulse purchases spike with relatability.</strong> When content mirrors real daily situations, purchase intent increases sharply.</p>
+      </div>
+      <div class="insight-row">
+        <div class="insight-dot"></div>
+        <p><strong>First-order discounts are decisive.</strong> Price sensitivity among students means a visible offer is often the final push needed.</p>
+      </div>
+      <div class="insight-row">
+        <div class="insight-dot"></div>
+        <p><strong>Push notifications within 24 hrs work.</strong> Timely reminders after app exploration significantly improve conversion rates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section id="strategy">
+  <div class="section-label">05 — Core Strategy</div>
+  <h2>Situation-Based<br>Marketing</h2>
+
+  <div class="strategy-positioning fade-in">
+    <div class="positioning-quote">"Blinkit — Your solution to everyday emergencies."</div>
+    <div class="positioning-badge">Core Positioning</div>
+  </div>
+
+  <p style="color:var(--muted); max-width:600px; font-size:0.95rem; line-height:1.8; margin-bottom:2rem;">
+    Instead of promoting technical features like "10-minute delivery," the strategy shifted to <strong style="color:var(--text);">emotional resonance</strong> — anchoring the brand to real moments users actually experience.
+  </p>
+
+  <div class="scenarios-grid fade-in">
+    <div class="scenario-card">
+      <span class="scenario-emoji">🌙</span>
+      <p>Midnight cravings hitting at 2am when nothing's open</p>
+    </div>
+    <div class="scenario-card">
+      <span class="scenario-emoji">🏃</span>
+      <p>Last-minute grocery emergency before guests arrive</p>
+    </div>
+    <div class="scenario-card">
+      <span class="scenario-emoji">👨‍👩‍👧</span>
+      <p>Unexpected guests with an empty fridge situation</p>
+    </div>
+    <div class="scenario-card">
+      <span class="scenario-emoji">📚</span>
+      <p>Study-night essentials when you can't leave campus</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPLEMENTATION -->
+<section class="impl-section" id="implementation">
+  <div class="section-label">06 — Execution</div>
+  <h2>How It Was<br>Implemented</h2>
+  <div class="impl-tabs fade-in">
+    <div class="impl-card">
+      <div class="impl-number">Channel 01</div>
+      <h3>Short-Form Content Marketing</h3>
+      <ul class="impl-list">
+        <li>40+ Instagram Reels created around relatable scenarios</li>
+        <li>Strong 2-second hooks to stop mid-scroll</li>
+        <li>Real-life situations, not product features</li>
+        <li>Clear CTA: "Order now on Blinkit"</li>
+        <li>A/B tested hooks across audience segments</li>
+      </ul>
+    </div>
+    <div class="impl-card">
+      <div class="impl-number">Channel 02</div>
+      <h3>Campus Ambassador Program</h3>
+      <ul class="impl-list">
+        <li>20 micro-influencers from target colleges</li>
+        <li>Unique referral codes per ambassador</li>
+        <li>₹100 first-order discount for new users</li>
+        <li>Limited-time campus challenges for virality</li>
+        <li>Performance-tracked via Mixpanel & Firebase</li>
+      </ul>
+    </div>
+    <div class="impl-card">
+      <div class="impl-number">Channel 03</div>
+      <h3>Funnel Optimization</h3>
+      <ul class="impl-list">
+        <li>First-order discount highlighted on homepage</li>
+        <li>Reduced checkout steps to minimize friction</li>
+        <li>Exit-intent offer pop-ups at drop-off points</li>
+        <li>Push notification reminders within 24 hours</li>
+        <li>Personalized offer banners based on user behavior</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FUNNEL -->
+<section class="funnel-section" id="funnel">
+  <div class="section-label" style="justify-content:center;">07 — Growth Funnel</div>
+  <h2>The Conversion Path</h2>
+  <div class="funnel-wrapper fade-in">
+    <div class="funnel-step">
+      <span class="funnel-icon">📱</span>
+      <div>
+        <div class="funnel-step-label">Social Media Content</div>
+        <div class="funnel-step-desc">Instagram Reels & campus ambassador posts trigger awareness</div>
+      </div>
+    </div>
+    <div class="funnel-arrow">↓</div>
+    <div class="funnel-step">
+      <span class="funnel-icon">⬇️</span>
+      <div>
+        <div class="funnel-step-label">App Install</div>
+        <div class="funnel-step-desc">Viewer converts to installer via compelling CTA</div>
+      </div>
+    </div>
+    <div class="funnel-arrow">↓</div>
+    <div class="funnel-step">
+      <span class="funnel-icon">🎯</span>
+      <div>
+        <div class="funnel-step-label">Personalized Offer Banner</div>
+        <div class="funnel-step-desc">First-order discount surfaced on homepage immediately</div>
+      </div>
+    </div>
+    <div class="funnel-arrow">↓</div>
+    <div class="funnel-step">
+      <span class="funnel-icon">🏷️</span>
+      <div>
+        <div class="funnel-step-label">First-Order Discount Applied</div>
+        <div class="funnel-step-desc">Price barrier removed — ₹100 off at checkout</div>
+      </div>
+    </div>
+    <div class="funnel-arrow">↓</div>
+    <div class="funnel-step">
+      <span class="funnel-icon">🔔</span>
+      <div>
+        <div class="funnel-step-label">Push Reminder</div>
+        <div class="funnel-step-desc">24-hour notification re-engages hesitant users</div>
+      </div>
+    </div>
+    <div class="funnel-arrow">↓</div>
+    <div class="funnel-step" style="border-color:rgba(255,215,0,0.5); background:rgba(255,215,0,0.05);">
+      <span class="funnel-icon">✅</span>
+      <div>
+        <div class="funnel-step-label" style="color:var(--yellow);">Order Placed</div>
+        <div class="funnel-step-desc">User converts — 32% uplift achieved</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="section-label">08 — Tools Used</div>
+  <h2>Tech Stack &<br>Platforms</h2>
+  <div class="tools-grid fade-in">
+    <div class="tool-badge"><div class="tool-dot"></div>Meta Ads Manager</div>
+    <div class="tool-badge"><div class="tool-dot"></div>Google Analytics</div>
+    <div class="tool-badge"><div class="tool-dot"></div>Mixpanel</div>
+    <div class="tool-badge"><div class="tool-dot"></div>Looker Studio</div>
+    <div class="tool-badge"><div class="tool-dot"></div>Firebase Push Notifications</div>
+    <div class="tool-badge"><div class="tool-dot"></div>Canva</div>
+    <div class="tool-badge"><div class="tool-dot"></div>CapCut</div>
+    <div class="tool-badge"><div class="tool-dot"></div>Instagram Reels</div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section class="conclusion-section" id="conclusion">
+  <div class="section-label">09 — Conclusion</div>
+  <h2>Key Takeaways</h2>
+  <div class="conclusion-inner fade-in">
+    <p>This project demonstrates that <strong>emotion-driven, urgency-based marketing combined with funnel optimization</strong> can significantly improve first-time order conversions in the quick commerce industry.</p>
+    <p>By repositioning Blinkit not as a delivery service, but as <strong>a solution to real daily emergencies</strong>, the campaign successfully converted passive awareness into measurable action. Situation-based content resonated with Gen Z far more effectively than feature-led messaging.</p>
+    <p>The results — a 32% lift in first orders, 18% CPA reduction, and 24% repeat purchase rate — confirm that <strong>understanding audience psychology and removing friction</strong> at every funnel stage is the most reliable path to growth.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">Blinkit Growth Case Study</div>
+  <div class="footer-right">Growth Marketing · Quick Commerce · India · 2024</div>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Counter animation for stats
+  function animateCounter(el, target, suffix='%') {
+    let start = 0;
+    const duration = 1500;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        start = target;
+        clearInterval(timer);
+      }
+      el.textContent = Math.round(start) + suffix;
+    }, 16);
+  }
+
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const numbers = e.target.querySelectorAll('.stat-number');
+        numbers.forEach(n => {
+          const val = parseInt(n.textContent);
+          animateCounter(n, val);
+        });
+        statObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const statsGrid = document.querySelector('.stats-grid');
+  if (statsGrid) statObserver.observe(statsGrid);
+</script>
+</body>
+</html>
