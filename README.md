@@ -5,6 +5,7 @@ Despite Blinkit's strong brand presence and high app install rates, a large segm
 This project builds a complete end-to-end growth strategy that bridges the gap between user intent and action using situation-based marketing, campus outreach, and conversion funnel optimization.
 
 Core Positioning: "Blinkit — Your solution to everyday emergencies."
+Live sit: https://anupalodhi.github.io/blinkit-portfolio2/
 
 
 🎯 Objectives
