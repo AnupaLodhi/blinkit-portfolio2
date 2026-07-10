@@ -1,4 +1,4 @@
-# blinkit-portfolio2
+# blinkit-portfolio
 📌 Project Overview
 This is a growth marketing case study designed to solve one of the most common challenges in quick commerce — converting app installs into actual paying customers.
 Despite Blinkit's strong brand presence and high app install rates, a large segment of users — especially students and young professionals aged 18–28 — were downloading the app but never placing a first order.
